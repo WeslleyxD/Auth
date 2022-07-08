@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import TopicForm, EntryForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 def index (request):
     return render (request, 'learning_logs/index.html')
 
+@login_required
 def topics (request):
     topics = Topic.objects.order_by('date_added')
     return render (request, 'learning_logs/topics.html', {'topics' : topics})
